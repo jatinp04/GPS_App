@@ -1,0 +1,303 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body,
+html {
+  height: 100%;
+  font-family: "Poppins", sans-serif;
+}
+a {
+  margin: 0;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+a:focus {
+  outline: none !important;
+}
+a:hover {
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+p {
+  margin: 0;
+}
+ul,
+li {
+  margin: 0;
+  list-style-type: none;
+}
+input {
+  display: block;
+  outline: none;
+  border: none !important;
+}
+textarea {
+  display: block;
+  outline: none;
+}
+textarea:focus,
+input:focus {
+  border-color: transparent !important;
+}
+button {
+  outline: none !important;
+  border: none;
+  background: 0 0;
+}
+button:hover {
+  cursor: pointer;
+}
+iframe {
+  border: none !important;
+}
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+}
+table{
+    position: fixed;
+}
+.container-table100 {
+  width: 100%;
+  min-height: 100vh;
+  background: #101010;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 33px 30px;
+  
+}
+.wrap-table100 {
+  width: 1170px;
+  
+}
+table {
+  border-spacing: 1;
+  border-collapse: collapse;
+  background: #312e2e00;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  
+}
+table * {
+  position:relative;
+  border-collapse: collapse;
+}
+table td,
+table th {
+  padding-left: 8px;
+}
+table thead tr {
+  height: 60px;
+  background: #202022;
+}
+table tbody tr {
+  height: 50px;
+}
+table tbody tr:last-child {
+  border: 0;
+  border-bottom: 1px solid #ff0000; 
+}
+table td,
+table th {
+  text-align: center;
+}
+table td.l,
+table th.l {
+  text-align: right;
+}
+table td.c,
+table th.c {
+  text-align: center;
+}
+table td.r,
+table th.r {
+  text-align: center;
+}
+.table100-head th {
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  color: #6c6565;
+  line-height: 1.2;
+  font-weight: unset;
+  position: sticky;
+  top: 0;
+
+}
+tbody tr:nth-child(even) {
+  background-color: #1e1e1e;
+}
+tbody tr {
+    font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  color: white;
+  line-height: 1.2;
+  font-weight: unset;
+}
+tbody tr:hover {
+  color: rgb(209, 23, 23);
+  background-color: #41414110;
+  cursor: pointer;
+}
+.column1 {
+  width:auto;
+  padding-left: 40px;
+}
+.column2 {
+  
+    width:auto;
+}
+.column3 {
+  
+    width:auto;
+}
+.column4 {
+ 
+    width:auto;
+}
+
+/* Heading Section */
+.heading-section{
+    display: grid;
+    align-items: center;
+    /* justify-content: center; */
+    
+    
+    
+
+}
+
+/* Heading : GPS Summary */
+.h1-heading {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* margin-bottom: 20px; */
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-weight:400 ;
+    margin-bottom: 20px;
+  }
+  
+  /* Search Bar */
+  form[role="search"] {
+    position: relative;
+    width: 18rem;
+    padding: 0px;
+    margin: 0px;
+  
+  }
+  input[type="search"] {
+    width: 100%;
+    background: #1e1e1e;
+    color: white;
+    padding: 0 1.6rem;
+     border-radius:50px;
+    z-index: 1;
+    position: relative;
+    height: 2.5rem;
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+
+
+/*
+@media screen and (max-width: 992px) {
+  table {
+    display: block;
+  }
+  table > *,
+  table tr,
+  table td,
+  table th {
+    display: block;
+  }
+  table thead {
+    display: none;
+  }
+  table tbody tr {
+    height: auto;
+    padding: 37px 0;
+  }
+  table tbody tr td {
+    padding-left: 40% !important;
+    margin-bottom: 24px;
+  }
+  table tbody tr td:last-child {
+    margin-bottom: 0;
+  }
+  table tbody tr td:before {
+    font-family: OpenSans-Regular;
+    font-size: 14px;
+    color: #999;
+    line-height: 1.2;
+    font-weight: unset;
+    position: absolute;
+    width: 40%;
+    left: 30px;
+    top: 0;
+  }
+  table tbody tr td:nth-child(1):before {
+    content: "Date";
+  }
+  table tbody tr td:nth-child(2):before {
+    content: "Order ID";
+  }
+  table tbody tr td:nth-child(3):before {
+    content: "Name";
+  }
+  table tbody tr td:nth-child(4):before {
+    content: "Price";
+  }
+  table tbody tr td:nth-child(5):before {
+    content: "Quantity";
+  }
+  table tbody tr td:nth-child(6):before {
+    content: "Total";
+  }
+  .column4,
+  .column5,
+  .column6 {
+    text-align: left;
+  }
+  .column4,
+  .column5,
+  .column6,
+  .column1,
+  .column2,
+  .column3 {
+    width: 100%;
+  }
+  tbody tr {
+    font-size: 14px;
+  }
+}
+@media (max-width: 576px) {
+  .container-table100 {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+*/

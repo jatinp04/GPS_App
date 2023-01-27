@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body,
+html {
+  height: 100%;
+  font-family: sans-serif;
+}
+a {
+  margin: 0;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+a:focus {
+  outline: none !important;
+}
+a:hover {
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+p {
+  margin: 0;
+}
+ul,
+li {
+  margin: 0;
+  list-style-type: none;
+}
+input {
+  display: block;
+  outline: none;
+  border: none !important;
+}
+textarea {
+  display: block;
+  outline: none;
+}
+textarea:focus,
+input:focus {
+  border-color: transparent !important;
+}
+button {
+  outline: none !important;
+  border: none;
+  background: 0 0;
+}
+button:hover {
+  cursor: pointer;
+}
+iframe {
+  border: none !important;
+}
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+}
+.container-table {
+  width: 100%;
+  min-height: 80vh;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  flex-wrap:wrap;
+  padding: 33px 30px;
+}
+.wrap-table {
+  width: 960px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.table {
+  width: 100%;
+  display: table;
+  margin: 0;
+}
+
+.row {
+  display: table-row;
+  background: #29292a;
+}
+.row.header {
+  color: #fff;
+  background: #1b1b1c;
+}
+
+.cell {
+  display: table-cell;
+}
+
+.row .cell {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  color: rgb(238, 236, 236);
+  line-height: 1.2;
+  font-weight: unset !important;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #222222;
+}
+.row.header .cell {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  color: rgb(108, 101, 101);
+  line-height: 1.2;
+  font-weight: unset !important;
+  padding-top: 19px;
+  padding-bottom: 19px;
+}
+.row .cell:nth-child(1) {
+  width: 150px;
+  padding-left: 40px;
+}
+.row .cell:nth-child(2) {
+  width: 200px;
+}
+.row .cell:nth-child(3) {
+  width: 250px;
+}
+.row .cell:nth-child(4) {
+  width: 190px;
+}
+.table,
+.row {
+  width: 100% !important;
+}
+.row:hover {
+  background-color: #202022;
+
+  cursor: pointer;
+}
+
+/* Heading : GPS Summary */
+.h1-heading {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* margin-bottom: 20px; */
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-weight:400 ;
+}
+
+/* Search Bar */
+form[role="search"] {
+  position: relative;
+  width: 18rem;
+  padding: 0px;
+  margin: 0px;
+
+}
+input[type="search"] {
+  width: 100%;
+  background: #1e1e1e;
+  color: white;
+  padding: 0 1.6rem;
+   border-radius:50px;
+  z-index: 1;
+  position: relative;
+  height: 2.5rem;
+  font-size: 1rem;
+}
+
+
+

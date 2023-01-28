@@ -29,6 +29,8 @@ app.get("/devices", (req, res) => {
   let query = "select * from devices";
   const orderKey = (req.query && req.query.orderKey) || false;
   const offset = (req.query && req.query.offset) || false;
+  const dev_id = (req.query && req.query.dev_id) || false;
+  console.log(dev_id);
   const orderBy = (req.query && req.query.orderBy) || false;
   //   console.log(req.query)
 
@@ -44,13 +46,17 @@ app.get("/devices", (req, res) => {
     }
   }
 
-  query = query + " limit 5";
+  if (!dev_id) {
+    query = query + " limit 5";
+  } else {
+    query = `${query} where devices_id='${dev_id}'`;
+  }
   //   console.log(query);
   if (offset) {
     query = `${query} offset  ${offset}`;
   }
 
-//   console.log("query: ", query);
+  console.log("query: ", query);
 
   async.auto(
     {
@@ -96,6 +102,169 @@ app.get("/count", (req, res) => {
         return res.status(403).json({ error: err });
       }
       return res.json({ results: results.getRowCount });
+    }
+  );
+});
+
+//Register API
+/*
+app.post("/signup", (req, res) => {
+  let { name, email, password, password2 } = req.body;
+
+  let errors = [];
+
+  console.log({
+    name,
+    email,
+    password,
+    password2,
+  });
+
+  if (!name || !email || !password || !password2) {
+    errors.push({ message: "Please enter all fields" });
+  }
+
+  if (password.length < 6) {
+    errors.push({ message: "Password must be a least 6 characters long" });
+  }
+
+  if (password !== password2) {
+    errors.push({ message: "Passwords do not match" });
+  }
+
+  if (errors.length > 0) {
+    res.render("register", { errors, name, email, password, password2 });
+  } else {
+    hashedPassword = bcrypt.hash(password, 10);
+    console.log(hashedPassword);
+    // Validation passed
+    async.auto(
+      {
+        signupUsers: function (cb) {
+          pool.query(
+            `SELECT * FROM users
+            WHERE email = $1`,
+            [email],
+            (err, results) => {
+              if (err) {
+                console.log(err);
+              }
+              console.log(results.rows);
+
+              if (results.rows.length > 0) {
+                return res.render("register", {
+                  message: "Email already registered",
+                });
+              } else {
+                pool.query(
+                  `INSERT INTO users (name, email, password)
+                    VALUES ($1, $2, $3)
+                    RETURNING id, password`,
+                  [name, email, hashedPassword]
+                );
+              }
+            }
+          );
+        },
+      },
+      function (err, results) {
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          console.log(results.rows);
+          req.flash("success_msg", "You are now registered. Please log in");
+          res.redirect("/");
+        };
+      }
+    );
+  }
+});
+*/
+
+//SignUp Request
+
+app.post("/signup", (req, res) => {
+  let { email, password, authToken } = req.body;
+
+  async.auto(
+    {
+      alreadyExists: (cb) => {
+        pool.query(
+          `select * from users where email=$1`,
+          [email],
+          (err, docs) => {
+            if (err) {
+              return cb(err);
+            }
+            if (docs && docs.rowCount) {
+              return cb(null, true);
+            }
+            return cb(null, false);
+          }
+        );
+      },
+      signupCheck: [
+        "alreadyExists",
+        function (results, cb) {
+          if (results.alreadyExists) {
+            return cb("Email already Exsits");
+          }
+          pool.query(
+            `insert into users(email ,password ,authtoken) values ($1,$2,$3)`,
+            [email, password, authToken],
+            (err, docs) => {
+              if (err) {
+                return cb(err);
+              }
+              return cb(null, docs);
+            }
+          );
+        },
+      ],
+    },
+    function (err, results) {
+      if (err) {
+        return res.status(403).json({ error: err });
+      }
+      return res.send(results.signupCheck);
+    }
+  );
+});
+
+//Login
+
+app.post("/login", (req, res) => {
+  let { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(403).send("Email or Password not Received");
+  }
+  async.auto(
+    {
+      loginCheck: function (cb) {
+        pool.query(
+          `select * from users where email=$1 and password =$2`,
+          [email, password],
+          (err, docs) => {
+            if (err) {
+              return cb(err);
+            }
+            if (docs && docs.rowCount) {
+              return cb(null, true);
+            }
+            return cb(null, false);
+          }
+        );
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return res.status(403).json({ error: err });
+      }
+      if (results.loginCheck) {
+        return res.send("Logged In!");
+      }
+      return res.status(403).send("Invalid Credentials");
     }
   );
 });

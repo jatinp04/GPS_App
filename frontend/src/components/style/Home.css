@@ -23,6 +23,21 @@ a:focus {
 a:hover {
   text-decoration: none;
 }
+
+.navigation:hover{
+  cursor:pointer;
+}
+
+.div-search{
+  display:flex;
+  /* flex */
+  justify-content:space-between;
+}
+.arrow{
+  display: flex;
+}
+
+
 h1,
 h2,
 h3,
@@ -65,7 +80,7 @@ iframe {
 }
 .limiter {
   width: 100%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 table{
     position: fixed;
@@ -73,6 +88,7 @@ table{
 .container-table100 {
   width: 100%;
   min-height: 100vh;
+  height: 100vh;
   background: #101010;
   display: -webkit-box;
   display: -webkit-flex;
@@ -84,9 +100,14 @@ table{
   flex-wrap: wrap;
   padding: 33px 30px;
   
+  /* margin-left: 30vh;
+  margin-top: 12vh; */
+  
+  
 }
 .wrap-table100 {
   width: 1170px;
+  position: fixed;
   
 }
 table {
@@ -122,6 +143,7 @@ table tbody tr:last-child {
 table td,
 table th {
   text-align: center;
+  
 }
 table td.l,
 table th.l {
@@ -143,6 +165,7 @@ table th.r {
   font-weight: unset;
   position: sticky;
   top: 0;
+  
 
 }
 tbody tr:nth-child(even) {

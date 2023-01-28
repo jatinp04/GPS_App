@@ -28,3 +28,20 @@ select * from devices order by devices_id asc;
 
  4.  DB Start 
  net start postgresql-9.6
+
+
+
+--  User Creation for Login
+
+1. create database users;
+2 \c users --for selecting Db
+3 create table users
+(user_id uuid primary key not null unique DEFAULT, name varchar(200) not null , email varchar(200) not null ,password varchar(200) not null , unique(email)); 
+
+
+create table users (
+    user_id uuid DEFAULT uuid_generate_v4() unique not null,
+    email  text unique not null,
+    password text not null,
+    authToken text not null
+);

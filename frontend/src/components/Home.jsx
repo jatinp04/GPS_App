@@ -1,11 +1,11 @@
 import { React, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Router, useNavigate } from "react-router-dom";
 import "./style/Home.css";
 import axios from "axios";
-import UnfoldMoreSharpIcon from "@mui/icons-material/UnfoldMoreSharp";
-import KeyboardArrowRightSharpIcon from "@mui/icons-material/KeyboardArrowRightSharp";
-import KeyboardArrowLeftSharpIcon from "@mui/icons-material/KeyboardArrowLeftSharp";
 import { useTable, usePagination } from "react-table";
+import NavigateNextSharpIcon from "@mui/icons-material/NavigateNextSharp";
+import NavigateBeforeSharpIcon from "@mui/icons-material/NavigateBeforeSharp";
+import ArrowRightAltSharpIcon from "@mui/icons-material/ArrowRightAltSharp";
 import _ from "lodash";
 
 function Home() {
@@ -33,6 +33,7 @@ function Home() {
   const [getTotalPage, setTotalPage] = useState(0);
   const [getDevices, setDevices] = useState([]);
   const [getDevicesFilter, setDevicesFilter] = useState([]);
+  const navigate = useNavigate();
 
   function getAllDevices(queryParams) {
     axios
@@ -68,14 +69,14 @@ function Home() {
 
   const gotoPage = (cursor, sortOptions) => {
     let currPage = getPage;
-    console.log('before: ', currPage);
+    console.log("before: ", currPage);
 
     if (cursor && cursor == "prev") {
       currPage = currPage - 1 <= 1 ? 1 : currPage - 1;
     } else if (cursor && cursor == "next") {
       currPage = currPage + 1 >= getTotalPage ? getTotalPage : currPage + 1;
     }
-    console.log('after: ', currPage);
+    console.log("after: ", currPage);
     const offset = (currPage - 1) * 5 < 0 ? 0 : (currPage - 1) * 5;
     let queryParams = `?offset=${offset}`;
     if (sortOptions && sortOptions.orderKey) {
@@ -137,31 +138,35 @@ function Home() {
                     required
                   />
                 </form>
+                <div className="arrow">
+                  <p style={{ color: "white" }}>
+                    {" "}
+                    {getPage} of {getTotalPage}{" "}
+                  </p>
 
-                <p style={{ color: "white" }}>
-                  {" "}
-                  {getPage} of {getTotalPage}{" "}
-                </p>
-
-                <button
-                  style={{ color: "white" }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    gotoPage("prev");
-                  }}
-                >
-                  Left
-                </button>
-                <button
-                  style={{ color: "white" }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    gotoPage("next");
-                  }}
-                >
-                  Right
-                </button>
+                  <NavigateBeforeSharpIcon
+                    className="navigation"
+                    style={{ color: "white" }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      gotoPage("prev");
+                    }}
+                  >
+                    Left
+                  </NavigateBeforeSharpIcon>
+                  <NavigateNextSharpIcon
+                    className="navigation"
+                    style={{ color: "red" }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      gotoPage("next");
+                    }}
+                  >
+                    Right
+                  </NavigateNextSharpIcon>
+                </div>
               </div>
+
               {/* Title End */}
               <table>
                 <thead>
@@ -222,7 +227,16 @@ function Home() {
                       <td>{getDat.devices_id}</td>
                       <td>{getDat.device_type}</td>
                       <td> {getDat.latest_timestamp}</td>
-                      <td> {getDat.latest_location}</td>
+                      <td onClick={(e) => {e.preventDefault(); navigate({
+                         pathname: '/dashboard',
+                         search: `?dev_id=${getDat.devices_id}`,
+                      });}}>
+                        {" "}
+                        {getDat.latest_location}
+                        <span>
+                          <ArrowRightAltSharpIcon></ArrowRightAltSharpIcon>
+                        </span>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

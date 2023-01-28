@@ -1,44 +1,87 @@
-import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { React, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./style/Dashboard.css";
 import axios from "axios";
+// import { PieChart, Pie } from "recharts";
+import { PieChart } from "react-minimal-pie-chart";
+import _ from "lodash";
 
 function Dashboard() {
-  const [setDevices,getDevices] =useState([])
+  const [getDevices, setDevices] = useState([]);
+  const [getPieData, setPieData] = useState([]);
+  const dev_id = useParams().dev_id;
+  console.log(dev_id);
+  console.log(useParams());
 
+  // const data = [
+  //   {name: 'Geeksforgeeks', students: 400},
+  //   {name: 'Technical scripter', students: 700},
+  //   {name: 'Geek-i-knack', students: 200},
+  //   {name: 'Geek-o-mania', students: 1000}
+  // ];
 
- function getAllDevices(){
-  axios.get("http://localhost:7000/devices").then((response)=>{
-    getDevices(response.data.results)
-    // console.log(getDevices);
-  })
- }
+  const dataMock = [
+    { title: "One", value: 10, color: "#E38627" },
+    { title: "Two", value: 15, color: "#C13C37" },
+    { title: "Three", value: 20, color: "#6A2135" },
+  ];
+
+  function formatToPieChartData(apiData) {
+    const piedata = [];
+
+    const grouped = _.groupBy(apiData, "latest_location");
+    _.map(grouped, (value, key) => {
+      // piedata.push({title: key, value: value.length, color: `#C13C37`});
+      piedata.push({title: key, value: value.length, color: `#C1${value.length}C37`});
+    });
+
+    console.log("piedate: ", piedata);
+    setPieData(piedata);
+  }
+
+  function getAllDevices(dev_id) {
+    axios.get(`http://localhost:7000/devices?dev_id=${dev_id}`).then((response) => {
+      setDevices(response.data.results);
+      // console.log(setDevices);
+      formatToPieChartData(response.data.results);
+    });
+  }
+  useEffect(() => {
+    getAllDevices("D-1567");
+  }, []);
 
   return (
     <>
-      <div className="limiter">
-        <div className="container-table100">
-          <div className="wrap-table100">
-            <div className="table100">
-              <table>
-                <thead>
-                  <tr className="table100-head">
-                    <th className="column1D">Timestamp</th>
-                    <th className="column2D">Location</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {setDevices.map((getDat) => (
-                  <tr key={getDat.devices_uuid}>
-                   
-                    <td> {getDat.latest_timestamp}</td>
-                    <td> {getDat.latest_location}</td>
-                  </tr>
-                ))} 
-                </tbody>
-              </table>
-            </div>
-          </div>
+      <div style={{ display: "flex", float: "left", width: "100%" }}>
+        <div className="container-tableD">
+          <table>
+            <thead>
+              <tr className="table100-head">
+                <th className="column1">Timestamp</th>
+                <th className="column2">Location</th>
+              </tr>
+            </thead>
+            <tbody>
+              {getDevices.map((getDat) => (
+                <tr key={getDat.devices_uuid}>
+                  <td> {getDat.latest_timestamp}</td>
+                  <td> {getDat.latest_location}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div style={{ width: "50%", marginRight: "40px" }}>
+          <PieChart
+            data={getPieData}
+            radius="20"
+            segmentsShift={(index) => (index === 0 ? 3 : 0)}
+            label={({ dataEntry }) => dataEntry.title}
+            labelStyle={{
+              fontSize: "5px",
+              fontFamily: "sans-serif",
+            }}
+          />
         </div>
       </div>
     </>

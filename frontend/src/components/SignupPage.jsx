@@ -14,7 +14,7 @@ function SignupPage() {
   function Signup(e) {
     
     // console.log("Check!");
-
+    if(password.length==0){alert("Please Enter the Password!")}
     if(password !== confirmPass){alert("Password Not Matching")}
     if(password.length < 6 ){alert("Password must be a least 6 characters long")}
     
@@ -42,11 +42,11 @@ function SignupPage() {
         <h1>Signup</h1>
         <form method="post">
           <div className="txt_field">
-            <input type="text" required onChange={(e)=>{
+            <input type="email" required onChange={(e)=>{
               setEmail(e.target.value);
             }}></input>
             <span></span>
-            <label>Username</label>
+            <label>Email</label>
           </div>
           <div className="txt_field">
             <input type="password" required onChange={(e)=>{

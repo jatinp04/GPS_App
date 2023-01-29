@@ -16,7 +16,7 @@ function App() {
           <Route path="summary" element={<SummaryPage />} />
           <Route path="home" element={<Home />} />
           <Route path="dashboard" element={<Dashboard />}>
-             {/* <Route path=":dev_id" element={<Dashboard />}></Route> */}
+            
           </Route>
         </Route>
       </Routes>

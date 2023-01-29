@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams ,useLocation} from "react-router-dom";
 import "./style/Dashboard.css";
 import axios from "axios";
 // import { PieChart, Pie } from "recharts";
@@ -9,6 +9,7 @@ import _ from "lodash";
 function Dashboard() {
   const [getDevices, setDevices] = useState([]);
   const [getPieData, setPieData] = useState([]);
+  const location = useLocation();
   const dev_id = useParams().dev_id;
   console.log(dev_id);
   console.log(useParams());
@@ -32,7 +33,7 @@ function Dashboard() {
     const grouped = _.groupBy(apiData, "latest_location");
     _.map(grouped, (value, key) => {
       // piedata.push({title: key, value: value.length, color: `#C13C37`});
-      piedata.push({title: key, value: value.length, color: `#C1${value.length}C37`});
+      piedata.push({title: key, value: value.length, color: `#DF${value.length}63C`});
     });
 
     console.log("piedate: ", piedata);
@@ -47,7 +48,7 @@ function Dashboard() {
     });
   }
   useEffect(() => {
-    getAllDevices("D-1567");
+    getAllDevices(location.state.search);
   }, []);
 
   return (
@@ -76,10 +77,12 @@ function Dashboard() {
             data={getPieData}
             radius="20"
             segmentsShift={(index) => (index === 0 ? 3 : 0)}
-            label={({ dataEntry }) => dataEntry.title}
+            label={({ dataEntry }) =>( dataEntry.percentage+"%")}
             labelStyle={{
-              fontSize: "5px",
-              fontFamily: "sans-serif",
+              fontSize: "4px",
+              fontFamily:"inherit",
+              
+              
             }}
           />
         </div>

@@ -8,6 +8,8 @@ const cors = require("cors");
 const port = process.env.BACKEND_PORT; //Backend Port Running on 5001
 const secretKey = process.env.JWT_SECRET;
 const pool = require("./services/database");
+const bcrypt = require("bcrypt");
+const verify = require("./services/authService");
 
 const app = express();
 app.use(express.json());
@@ -185,11 +187,16 @@ app.post("/signup", (req, res) => {
 //SignUp Request
 
 app.post("/signup", (req, res) => {
-  let { email, password, authToken } = req.body;
+  let { email, password } = req.body;
+  // let hashedPassword = await bcrypt.hash(password, 10);
+  // console.log(hashedPassword);
+
+  // console.log(req.body)
 
   async.auto(
     {
       alreadyExists: (cb) => {
+        // console.log(cb);
         pool.query(
           `select * from users where email=$1`,
           [email],
@@ -200,19 +207,45 @@ app.post("/signup", (req, res) => {
             if (docs && docs.rowCount) {
               return cb(null, true);
             }
+            console.log(docs.rowCount);
             return cb(null, false);
           }
         );
       },
-      signupCheck: [
+      hashedPass: [
         "alreadyExists",
         function (results, cb) {
+          console.log(results.alreadyExists);
+          // console.log(cb);
           if (results.alreadyExists) {
             return cb("Email already Exsits");
           }
+          bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(password, salt, function (err, hash) {
+              if (err) {
+                return cb(err);
+              }
+              return cb(null, hash);
+            });
+          });
+        },
+      ],
+
+      signupCheck: [
+        "hashedPass",
+        function (results, cb) {
+          // if (results.alreadyExists) {
+          //   return cb("Email already Exsits");
+          // }
+          if (!results.hashedPass) {
+            return cb("Hash Not Generated");
+          }
+
+          req.body.authToken = jwt.sign(req.body, secretKey);
+
           pool.query(
-            `insert into users(email ,password ,authtoken) values ($1,$2,$3)`,
-            [email, password, authToken],
+            `insert into users(email ,password,authtoken) values ($1,$2,$3)`,
+            [email, results.hashedPass, req.body.authToken],
             (err, docs) => {
               if (err) {
                 return cb(err);
@@ -234,7 +267,7 @@ app.post("/signup", (req, res) => {
 
 //Login
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
   let { email, password } = req.body;
   if (!email || !password) {
     return res.status(403).send("Email or Password not Received");
@@ -243,30 +276,77 @@ app.post("/login", (req, res) => {
     {
       loginCheck: function (cb) {
         pool.query(
-          `select * from users where email=$1 and password =$2`,
-          [email, password],
-          (err, docs) => {
+          `select password from users where email=$1 `,
+          [email],
+          async (err, docs) => {
             if (err) {
               return cb(err);
             }
             if (docs && docs.rowCount) {
-              return cb(null, true);
+              // console.log(docs.rows[0]);
+              // let comparePass =await bcrypt.compare(password,docs.rows[0].password)
+              // console.log(comparePass);
+
+              return cb(null, docs.rows[0]);
             }
             return cb(null, false);
           }
         );
       },
+
+      byCryptPassCheck: [
+        "loginCheck",
+
+        (results, cb) => {
+          // console.log(cb);
+          if (!results.loginCheck) {
+            return res.status(403).send("Email ID Does Not Exsist!");
+          }
+          const hashPass = results.loginCheck.password || false;
+          console.log(results.loginCheck);
+          bcrypt.compare(password, hashPass, (err, passReceived) => {
+            if (!passReceived) {
+              return cb(null, false);
+            }
+            var token = jwt.sign(
+              {
+                email: results.loginCheck.email,
+                password: results.loginCheck.password,
+              },
+              secretKey
+            );
+            console.log(token);
+            return cb(null, token);
+          });
+        },
+      ],
     },
     function (err, results) {
       if (err) {
         return res.status(403).json({ error: err });
       }
-      if (results.loginCheck) {
-        return res.send("Logged In!");
+      if (!results.byCryptPassCheck) {
+        return res.status(403).send("Unable to Login");
       }
-      return res.status(403).send("Invalid Credentials");
+      console.log(results.byCryptPassCheck);
+      return res
+        .cookie("authToken", results.byCryptPassCheck, {
+          httpOnly: true,
+          expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+        })
+        .send("Login SuccessFull");
     }
   );
+});
+
+//logout
+app.get("/logout", (req, res) => {
+  res
+    .cookie("authToken", null, {
+      httpOnly: true,
+      expires: new Date(Date.now()),
+    })
+    .send("Succesfully logged Out!");
 });
 
 app.listen(port, () => {

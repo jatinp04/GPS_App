@@ -52,7 +52,7 @@ function Home() {
     axios
       .get("http://localhost:7000/count?tableKey=devices")
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           const totalPages = Math.ceil(parseInt(response.data.results) / 5);
           setTotalPage(totalPages);
         }
@@ -71,9 +71,9 @@ function Home() {
     let currPage = getPage;
     console.log("before: ", currPage);
 
-    if (cursor && cursor == "prev") {
+    if (cursor && cursor === "prev") {
       currPage = currPage - 1 <= 1 ? 1 : currPage - 1;
-    } else if (cursor && cursor == "next") {
+    } else if (cursor && cursor === "next") {
       currPage = currPage + 1 >= getTotalPage ? getTotalPage : currPage + 1;
     }
     console.log("after: ", currPage);
@@ -100,7 +100,7 @@ function Home() {
   // }
 
   const handleSearch = (query) => {
-    if (!query || query == "") {
+    if (!query || query === "") {
       setDevicesFilter(getDevices);
     }
     console.log("search query: ", query);
@@ -227,14 +227,18 @@ function Home() {
                       <td>{getDat.devices_id}</td>
                       <td>{getDat.device_type}</td>
                       <td> {getDat.latest_timestamp}</td>
-                      <td onClick={(e) => {e.preventDefault(); navigate({
-                         pathname: '/dashboard',
-                         search: `?dev_id=${getDat.devices_id}`,
-                      });}}>
+                      <td onClick={(e) => {e.preventDefault(); navigate(
+                          '/dashboard',{
+                            state:{
+                              search:getDat.devices_id
+                            }
+                          }
+                         
+                      );}}>
                         {" "}
                         {getDat.latest_location}
-                        <span>
-                          <ArrowRightAltSharpIcon></ArrowRightAltSharpIcon>
+                        <span >
+                          <ArrowRightAltSharpIcon style={{marginLeft:"80px"}}></ArrowRightAltSharpIcon>
                         </span>
                       </td>
                     </tr>

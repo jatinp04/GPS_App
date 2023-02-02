@@ -79,7 +79,7 @@ Navigate to authService.js in the ```backend``` Folder under ```services``` fold
 
 1. Replace the ```user``` with your postgres username
 2. Port with your default ```port``` that postgres is runnig on default will be 5432
-3. Replace the database field with  the database file in the imported previous step 
+3. Replace the database field with  the database file name in the imported in  previous step 
 
 ```bash 
 const pool = new Pool({

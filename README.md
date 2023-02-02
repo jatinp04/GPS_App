@@ -1,4 +1,3 @@
-
 # GPS App
 
 Gps app which shows the data of the GPS devices with it's Device type, Device Location and the Timestamp.
@@ -41,7 +40,7 @@ CREATE DATABASE GPS
 2. Import the file which you have downlaoded earlier 
 
 ```bash
-sudo -u postgres psql DATABASE_NAME < 'file_path'
+ psql DATABASE_NAME < 'file_path'
 ```
 
 
@@ -68,7 +67,7 @@ Go to the project directory
 cd GPS_App
 ```
 
-Install dependencies
+Install dependencies on both backend and frontend folders.
 
 ```bash
 npm install
@@ -105,19 +104,15 @@ BACKEND_PORT=7000
 JWT_SECRET=abcdefghijkl
 DB_KEY=<DATABASE_PASSWORD>
 ```
-Navigate to Backend folder 
+Navigate to Backend folder and start the server  Backend
 
 ```bash
 cd backend
-```
 
-
-Start the server : Backend
-
-
-```bash
 nodemon
+
 ```
+
 
 Open a Seprate Terminal and Start the Frontend server
 ```bash
@@ -125,4 +120,6 @@ cd frontend
 
 npm run start
 ``` 
+
+
 

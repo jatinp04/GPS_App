@@ -24,19 +24,27 @@ a:hover {
   text-decoration: none;
 }
 
-.navigation:hover{
-  cursor:pointer;
-}
 
 .div-search{
   display:flex;
   /* flex */
   justify-content:space-between;
 }
+
+/*  Arrow  */
 .arrow{
   display: flex;
 }
+.navigation:hover{
+  cursor:pointer;
+}
 
+.logout:hover{
+  cursor: pointer;
+  transform: scale(1.2);
+  transition: 350ms ease-in;
+  
+}
 
 h1,
 h2,
@@ -113,7 +121,7 @@ table{
 table {
   border-spacing: 1;
   border-collapse: collapse;
-  background: #312e2e00;
+  background: #1c1b1b;
   border-radius: 10px;
   overflow: hidden;
   width: 100%;
@@ -160,12 +168,12 @@ table th.r {
 .table100-head th {
   font-size: 18px;
   font-family: "Poppins", sans-serif;
-  color: #6c6565;
+  color: #888484;
   line-height: 1.2;
   font-weight: unset;
   position: sticky;
   top: 0;
-  
+  cursor: pointer;
 
 }
 tbody tr:nth-child(even) {
@@ -199,6 +207,7 @@ tbody tr:hover {
  
     width:auto;
 }
+
 
 /* Heading Section */
 .heading-section{
@@ -244,6 +253,9 @@ tbody tr:hover {
     margin-bottom: 20px;
   }
 
+  LogoutOutlinedIcon:hover{
+    color: red;
+  }
 
 
 /*

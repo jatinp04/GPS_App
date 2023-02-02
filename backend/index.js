@@ -25,14 +25,16 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
+
+
 //GET Request Fetch table from DB
 
-app.get("/devices", (req, res) => {
+app.get("/devices",verify,(req, res) => {
   let query = "select * from devices";
   const orderKey = (req.query && req.query.orderKey) || false;
   const offset = (req.query && req.query.offset) || false;
   const dev_id = (req.query && req.query.dev_id) || false;
-  console.log(dev_id);
+  // console.log(dev_id);
   const orderBy = (req.query && req.query.orderBy) || false;
   //   console.log(req.query)
 
@@ -80,6 +82,10 @@ app.get("/devices", (req, res) => {
     }
   );
 });
+
+
+
+
 
 app.get("/count", (req, res) => {
   let tableName = req.query.tableKey || false;
@@ -260,7 +266,7 @@ app.post("/signup", (req, res) => {
       if (err) {
         return res.status(403).json({ error: err });
       }
-      return res.send(results.signupCheck);
+      return res.send("SignUp Successfull!");
     }
   );
 });
@@ -303,7 +309,8 @@ app.post("/login", async (req, res) => {
             return res.status(403).send("Email ID Does Not Exsist!");
           }
           const hashPass = results.loginCheck.password || false;
-          console.log(results.loginCheck);
+          // console.log(results.loginCheck);
+
           bcrypt.compare(password, hashPass, (err, passReceived) => {
             if (!passReceived) {
               return cb(null, false);
@@ -315,7 +322,7 @@ app.post("/login", async (req, res) => {
               },
               secretKey
             );
-            console.log(token);
+            // console.log(token);
             return cb(null, token);
           });
         },

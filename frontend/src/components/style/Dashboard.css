@@ -1,5 +1,5 @@
 .container-tableD {
-  width: 50%;
+  width: 40%;
   min-height: 100vh;
   background: #101010;
   display: flex;
@@ -12,7 +12,7 @@
 }
 
 .tabl100 {
-width: 50%;
+width: 60%;
 margin-left: -5px;
 margin-right: -5px;
 }

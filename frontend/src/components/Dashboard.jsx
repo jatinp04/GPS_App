@@ -5,6 +5,7 @@ import axios from "axios";
 // import { PieChart, Pie } from "recharts";
 import { PieChart } from "react-minimal-pie-chart";
 import _ from "lodash";
+import NavBar from "./Navbar";
 
 function Dashboard() {
   const [getDevices, setDevices] = useState([]);
@@ -41,7 +42,7 @@ function Dashboard() {
   }
 
   function getAllDevices(dev_id) {
-    axios.get(`http://localhost:7000/devices?dev_id=${dev_id}`).then((response) => {
+    axios.get(`http://localhost:7000/devices?dev_id=${dev_id}`,{withCredentials:true}).then((response) => {
       setDevices(response.data.results);
       // console.log(setDevices);
       formatToPieChartData(response.data.results);
@@ -53,6 +54,7 @@ function Dashboard() {
 
   return (
     <>
+    <NavBar></NavBar>
       <div style={{ display: "flex", float: "left", width: "100%" }}>
         <div className="container-tableD">
           <table>
@@ -73,18 +75,20 @@ function Dashboard() {
           </table>
         </div>
         <div style={{ width: "50%", marginRight: "40px" }}>
+         
           <PieChart
             data={getPieData}
-            radius="20"
+            radius="15"
             segmentsShift={(index) => (index === 0 ? 3 : 0)}
             label={({ dataEntry }) =>( dataEntry.percentage+"%")}
+
             labelStyle={{
-              fontSize: "4px",
+              fontSize: "2.5px",
               fontFamily:"inherit",
-              
-              
+               
             }}
           />
+           
         </div>
       </div>
     </>

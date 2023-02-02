@@ -1,7 +1,7 @@
 import { React, useState } from "react";
-import axios from "axios";
 import "./style/LoginSignup.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -9,7 +9,7 @@ function LoginPage() {
   const navigate = useNavigate();
 
   function setLogin(e) {
-    console.log(email);
+    // console.log(email);
     e.preventDefault(); //Prevent Reloading
     axios
       .post(
@@ -28,7 +28,7 @@ function LoginPage() {
       })
       .catch((Err) => {
         if (Err) {
-          alert("Please Try Again!");
+          alert("Invalid Credentials or User Not Registered!");
         }
       });
   }

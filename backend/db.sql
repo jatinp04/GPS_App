@@ -45,3 +45,10 @@ create table users (
     password text not null,
     authToken text not null
 );
+
+
+//EXport DB database
+
+pg_dump -p 5000 -U postgres gpspensieve  > dbexport.pgsql --> -p 5000 is given because default port has been changed
+
+

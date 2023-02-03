@@ -121,5 +121,35 @@ cd frontend
 npm run start
 ``` 
 
+## Getting into the project:
+This Project has been Developed using React for Frontend and Node.js for backend the database in use is Psql.
+
+1. The Projects starts from the Login Page and user can also signup for the same if not registered.
+
+
+
+![Login](https://user-images.githubusercontent.com/38129773/216619750-45d7c6b4-d086-4ef3-bcad-ed2586369135.png)
+
+
+![Signup](https://user-images.githubusercontent.com/38129773/216619758-2b22e238-13e8-4b1c-afcf-8e0fcbdf7f83.png)
+
+2. After Logging in the GPS Summary page opens and its shows the various parameters of a particular device such as ```Device ID``` ```Device Type``` ``Lastest Timestamp`` and it's ```Latest Location```.
+
+3. The user can also sort each of the properties by each field or can search by any of it's properties.
+4. The user can also toggle pages accordingly by clicking on the top right of the table.
+
+
+
+
+
+
+![HomePage](https://user-images.githubusercontent.com/38129773/216619782-ea2b2ee1-670a-479c-9973-13bb4b054a58.png)
+
+5. By clicking on the ``` →``` present in the last column, which then navigates to the dashboard of the GPS Device with it's Timestamp and Location and a Pie-Chart which is based on the % of Location.
+
+![Dashboard](https://user-images.githubusercontent.com/38129773/216619806-287bc100-23a7-4573-9a39-94289368b5f6.png)
+
+
+
 
 

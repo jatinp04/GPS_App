@@ -106,7 +106,7 @@ Open a Seprate Terminal and Start the Frontend server
 cd frontend
 
 npm run start
-```
+``` 
 
 ## Getting into the project:
 

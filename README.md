@@ -2,7 +2,7 @@
 
 Gps app which shows the data of the GPS devices with it's Device type, Device Location and the Timestamp.
 
-Video Demo:
+Video Demo: https://youtu.be/0wt9Z4aC7dU
 
 ## Languages and Technologies used
 

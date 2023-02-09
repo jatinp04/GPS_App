@@ -29,7 +29,7 @@ app.use(cookieParser());
 
 //GET Request Fetch table from DB
 
-app.get("/devices",verify,(req, res) => {
+app.get("/api/v1/devices",(req, res) => {
   let query = "select * from devices";
   const orderKey = (req.query && req.query.orderKey) || false;
   const offset = (req.query && req.query.offset) || false;
@@ -87,7 +87,7 @@ app.get("/devices",verify,(req, res) => {
 
 
 
-app.get("/count", (req, res) => {
+app.get("/api/v1/count", (req, res) => {
   let tableName = req.query.tableKey || false;
   if (!tableName) {
     return res.status(401).send("Invalid Table Name");
@@ -192,7 +192,7 @@ app.post("/signup", (req, res) => {
 
 //SignUp Request
 
-app.post("/signup", (req, res) => {
+app.post("/api/v1/signup", (req, res) => {
   let { email, password } = req.body;
   // let hashedPassword = await bcrypt.hash(password, 10);
   // console.log(hashedPassword);
@@ -273,7 +273,7 @@ app.post("/signup", (req, res) => {
 
 //Login
 
-app.post("/login", async (req, res) => {
+app.post("/api/v1/login", async (req, res) => {
   let { email, password } = req.body;
   if (!email || !password) {
     return res.status(403).send("Email or Password not Received");
@@ -347,7 +347,7 @@ app.post("/login", async (req, res) => {
 });
 
 //logout
-app.get("/logout", (req, res) => {
+app.get("/api/v1/logout", (req, res) => {
   res
     .cookie("authToken", null, {
       httpOnly: true,

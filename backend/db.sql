@@ -51,4 +51,6 @@ create table users (
 
 pg_dump -p 5000 -U postgres gpspensieve  > dbexport.pgsql --> -p 5000 is given because default port has been changed
 
+// Start NGRok service 
 
+ngrok tcp 5000

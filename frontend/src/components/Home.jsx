@@ -1,9 +1,10 @@
     import { React, useState, useEffect } from "react";
     import { Router, useNavigate,Navigate } from "react-router-dom";
     import "./style/Home.css";
-    import axios from "axios";
+    // import axios from "axios";
+    import axios from "../Api";
     import NavBar from "./Navbar";
-    // import { useTable, usePagination } from "react-table";
+   
     import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
     import NavigateNextSharpIcon from "@mui/icons-material/NavigateNextSharp";
     import NavigateBeforeSharpIcon from "@mui/icons-material/NavigateBeforeSharp";
@@ -11,25 +12,7 @@
     import _ from "lodash";
 
     function Home() {
-      // const {
-      //   page,
-      //   nextPage,
-      //   previousPage,
-      //   canPreviousPage,
-      //   canNextPage,
-      //   state,
-      //   pageCount,
-
-      // } = useTable(
-      //   {
-      //     columns,
-      //     data,
-      //     initialState: { pageIndex: 2 }
-      //   },
-      //   usePagination
-      // );
-
-      // const { pageIndex, pageSize } = state;
+ 
 
       const [getPage, setPage] = useState(1);
       const [getTotalPage, setTotalPage] = useState(0);
@@ -42,14 +25,14 @@
 
       function getAllDevices(queryParams) {
         axios
-          .get(`http://localhost:7000/devices${queryParams}`, {
+          .get(`/devices${queryParams}`, {
             withCredentials: true,
           })
           .then((response) => {
             if(response.status===200){
               setDevices(response.data.results);
             setDevicesFilter(response.data.results);
-            console.log(response.data.results);
+            // console.log(response.data.results);
             }
             else{
               navigate ("/login")
@@ -64,7 +47,7 @@
 
       function getTotalPages() {
         axios
-          .get("http://localhost:7000/count?tableKey=devices", {
+          .get("/count?tableKey=devices", {
             withCredentials: true,
           })
           .then((response) => {

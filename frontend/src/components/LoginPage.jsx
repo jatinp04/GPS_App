@@ -1,7 +1,8 @@
 import { React, useState } from "react";
 import "./style/LoginSignup.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
+// import axios from "axios";
+import axios from "../Api"
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -13,11 +14,8 @@ function LoginPage() {
     e.preventDefault(); //Prevent Reloading
     axios
       .post(
-        "http://localhost:7000/login",
-        {
-          email: email,
-          password: password,
-        },
+        "/login",
+        { email: email, password: password },
         { withCredentials: true }
       )
       .then((response) => {

@@ -1,8 +1,8 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate, useParams ,useLocation} from "react-router-dom";
 import "./style/Dashboard.css";
-import axios from "axios";
-// import { PieChart, Pie } from "recharts";
+// import axios from "axios";
+import axios from "../Api";
 import { PieChart } from "react-minimal-pie-chart";
 import _ from "lodash";
 import NavBar from "./Navbar";
@@ -15,12 +15,7 @@ function Dashboard() {
   console.log(dev_id);
   console.log(useParams());
 
-  // const data = [
-  //   {name: 'Geeksforgeeks', students: 400},
-  //   {name: 'Technical scripter', students: 700},
-  //   {name: 'Geek-i-knack', students: 200},
-  //   {name: 'Geek-o-mania', students: 1000}
-  // ];
+  
 
   const dataMock = [
     { title: "One", value: 10, color: "#E38627" },
@@ -42,7 +37,7 @@ function Dashboard() {
   }
 
   function getAllDevices(dev_id) {
-    axios.get(`http://localhost:7000/devices?dev_id=${dev_id}`,{withCredentials:true}).then((response) => {
+    axios.get(`/devices?dev_id=${dev_id}`,{withCredentials:true}).then((response) => {
       setDevices(response.data.results);
       // console.log(setDevices);
       formatToPieChartData(response.data.results);

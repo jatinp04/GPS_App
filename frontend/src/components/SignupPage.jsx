@@ -1,5 +1,6 @@
 import { React, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import axios from "../Api"
 import "./style/LoginSignup.css";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +21,7 @@ function SignupPage() {
     
     e.preventDefault(); //Prevent Reloading
     axios
-      .post("http://localhost:7000/signup", {
+      .post("/signup", {
         email: email,
         password: password,
       },{ withCredentials: true })

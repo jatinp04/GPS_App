@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../Api";
 import { useNavigate } from "react-router-dom";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
@@ -9,7 +9,7 @@ export default function NavBar(props) {
     // console.log("Check!");
     e.preventDefault(); //Prevent Reloading
     axios
-      .get("http://localhost:7000/logout", { withCredentials: true })
+      .get("/logout", { withCredentials: true })
       .then((response) => {
         if (response.status == 200) {
           //Redirect to Login

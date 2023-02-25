@@ -20,7 +20,7 @@ const corsOptions = {
   origin: true,
   credentials: true,
   exposedHeaders: ["set-cookie"],
-  SameSite:None
+  
 };
 
 app.use(cors(corsOptions));

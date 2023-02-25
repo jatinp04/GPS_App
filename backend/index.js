@@ -340,7 +340,7 @@ app.post("/api/v1/login", async (req, res) => {
       return res
         .cookie("authToken", results.byCryptPassCheck, {
           httpOnly: true,
-          sameSite:"none",
+          SameSite:None,secure,
           expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
         })
         .send("Login SuccessFull");

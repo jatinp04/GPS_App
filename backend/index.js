@@ -1,10 +1,10 @@
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const async = require("async");
+const async = require("async"); //make sures to return a promise when used before a function 
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
-const cors = require("cors");
+const cors = require("cors"); //Cross origion resource sharing , allow restricted resource to be accessed from other domain
 const port = process.env.BACKEND_PORT; //Backend Port Running on 5001
 const secretKey = process.env.JWT_SECRET;
 const pool = require("./services/database");

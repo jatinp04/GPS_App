@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const corsOptions = {
   origin: true,
-  credentials: 'omit',
+  credentials: true,
   exposedHeaders: ["set-cookie"],
   
 };
@@ -340,6 +340,7 @@ app.post("/api/v1/login", async (req, res) => {
       return res
         .cookie("authToken", results.byCryptPassCheck, {
           httpOnly: true,
+          sameSite:"none",
           expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
         })
         .send("Login SuccessFull");

@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const corsOptions = {
   origin: true,
-  credentials: true,
+  credentials: 'omit',
   exposedHeaders: ["set-cookie"],
   
 };

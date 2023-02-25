@@ -20,6 +20,7 @@ const corsOptions = {
   origin: true,
   credentials: true,
   exposedHeaders: ["set-cookie"],
+  SameSite:None
 };
 
 app.use(cors(corsOptions));
@@ -29,7 +30,7 @@ app.use(cookieParser());
 
 //GET Request Fetch table from DB
 
-app.get("/api/v1/devices",(req, res) => {
+app.get("/api/v1/devices",verify,(req, res) => {
   let query = "select * from devices";
   const orderKey = (req.query && req.query.orderKey) || false;
   const offset = (req.query && req.query.offset) || false;

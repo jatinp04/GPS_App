@@ -18,13 +18,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: false,
+  origin: true,
   credentials: true,
   exposedHeaders: ["set-cookie"],
   
 };
 
 app.use(cors(corsOptions));
+
 app.use(cookieParser());
 
 
@@ -341,7 +342,7 @@ app.post("/api/v1/login", async (req, res) => {
       return res
         .cookie("authToken", results.byCryptPassCheck, {
           httpOnly: true,
-          SameSite:None,
+          // SameSite:None,
           expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
         })
         .send("Login SuccessFull");
